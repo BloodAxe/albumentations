@@ -11,12 +11,10 @@ import albumentations as A
 import albumentations.augmentations.functional as F
 from albumentations.core.serialization import SERIALIZABLE_REGISTRY, shorten_class_name
 from albumentations.core.transforms_interface import ImageOnlyTransform
-
 from .conftest import skipif_no_torch
 from .utils import (
     OpenMock,
     check_all_augs_exists,
-    get_dual_transforms,
     get_image_only_transforms,
     get_transforms,
     set_seed,
@@ -770,7 +768,7 @@ def test_shorten_class_name(class_fullname, expected_short_class_name):
 @pytest.mark.parametrize("seed", TEST_SEEDS)
 @pytest.mark.parametrize("p", [1])
 def test_template_transform_serialization(image, template, seed, p):
-    template_transform = A.TemplateTransform(name="template", templates=template, p=p)
+    template_transform = A.TemplateTransform(name="template", templates=[template], p=p)
 
     aug = A.Compose([A.Flip(), template_transform, A.Blur()])
 
