@@ -1,3 +1,10 @@
+# Albumentations
+
+Albumentations is a Python library for image augmentation. Image augmentation is used in deep learning and computer vision tasks to increase the quality of trained models. The purpose of image augmentation is to create new training samples from the existing data.
+
+** This is unofficial fork of the library. Maintained by [Eugene Khvedchenya](https://github.com/BloodAxe) (Ex. Albumentations core team). Use at own risk **
+
+
 # Important Update
 
 ![ukraine-flag](docs/480px-Flag_of_Ukraine.jpg)
@@ -23,11 +30,6 @@ Official channels
 Glory to Ukraine!
 
 
-# Albumentations
-[![PyPI version](https://badge.fury.io/py/albumentations.svg)](https://badge.fury.io/py/albumentations)
-![CI](https://github.com/albumentations-team/albumentations/workflows/CI/badge.svg)
-
-Albumentations is a Python library for image augmentation. Image augmentation is used in deep learning and computer vision tasks to increase the quality of trained models. The purpose of image augmentation is to create new training samples from the existing data.
 
 Here is an example of how you can apply some augmentations from Albumentations to create new images from the original one:
 ![parrot](https://habrastorage.org/webt/bd/ne/rv/bdnerv5ctkudmsaznhw4crsdfiw.jpeg)
@@ -289,14 +291,6 @@ Python and library versions: Python 3.9.5 (default, Jun 23 2021, 15:01:51) [GCC 
 
 To create a pull request to the repository, follow the documentation at [https://albumentations.ai/docs/contributing/](https://albumentations.ai/docs/contributing/)
 
-
-## Comments
-In some systems, in the multiple GPU regime, PyTorch may deadlock the DataLoader if OpenCV was compiled with OpenCL optimizations. Adding the following two lines before the library import may help. For more details [https://github.com/pytorch/pytorch/issues/1355](https://github.com/pytorch/pytorch/issues/1355)
-
-```python
-cv2.setNumThreads(0)
-cv2.ocl.setUseOpenCL(False)
-```
 
 ## Citing
 
