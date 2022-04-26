@@ -1798,7 +1798,7 @@ class GaussNoise(ImageOnlyTransform):
 
     def __init__(self, var_limit=(10.0, 50.0), mean=0, per_channel=True, always_apply=False, p=0.5):
         super(GaussNoise, self).__init__(always_apply, p)
-        if isinstance(var_limit, typing.Iterable):
+        if isinstance(var_limit, typing.Iterable) and not isinstance(var_limit, typing.Mapping):
             if var_limit[0] < 0:
                 raise ValueError("Lower var_limit should be non negative.")
             if var_limit[1] < 0:

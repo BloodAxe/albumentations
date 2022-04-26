@@ -28,7 +28,7 @@ from .utils import get_dual_transforms, get_image_only_transforms, get_transform
                 "transform_type": "standard",
             },
             A.TemplateTransform: {
-                "templates": np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8),
+                "templates": [np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8)],
             },
         },
         except_augmentations={A.FromFloat, A.Normalize, A.ToFloat},
@@ -61,7 +61,7 @@ def test_image_only_augmentations(augmentation_cls, params, image, mask):
             },
             A.MedianBlur: {"blur_limit": (3, 5)},
             A.TemplateTransform: {
-                "templates": np.random.uniform(low=0.0, high=1.0, size=(100, 100, 3)).astype(np.float32),
+                "templates": [np.random.uniform(low=0.0, high=1.0, size=(100, 100, 3)).astype(np.float32)],
             },
             A.RingingOvershoot: {"blur_limit": (3, 5)},
         },
@@ -156,7 +156,7 @@ def test_dual_augmentations_with_float_values(augmentation_cls, params, float_im
             A.CropAndPad: {"px": 10},
             A.Resize: {"height": 10, "width": 10},
             A.TemplateTransform: {
-                "templates": np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8),
+                "templates": [np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8)],
             },
         },
         except_augmentations={A.RandomCropNearBBox, A.RandomSizedBBoxSafeCrop},
@@ -198,7 +198,7 @@ def test_augmentations_wont_change_input(augmentation_cls, params, image, mask):
             A.CropAndPad: {"px": 10},
             A.Resize: {"height": 10, "width": 10},
             A.TemplateTransform: {
-                "templates": np.random.uniform(low=0.0, high=1.0, size=(100, 100, 3)).astype(np.float32),
+                "templates": [np.random.uniform(low=0.0, high=1.0, size=(100, 100, 3)).astype(np.float32)],
             },
         },
         except_augmentations={
@@ -236,7 +236,7 @@ def test_augmentations_wont_change_float_input(augmentation_cls, params, float_i
             },
             A.Normalize: {"mean": 0, "std": 1},
             A.TemplateTransform: {
-                "templates": np.random.randint(low=0, high=256, size=(224, 224), dtype=np.uint8),
+                "templates": [np.random.randint(low=0, high=256, size=(224, 224), dtype=np.uint8)],
             },
         },
         except_augmentations={
@@ -307,7 +307,7 @@ def test_augmentations_wont_change_shape_grayscale(augmentation_cls, params, ima
                 "transform_type": "standard",
             },
             A.TemplateTransform: {
-                "templates": np.random.randint(0, 256, (224, 224, 3), dtype=np.uint8),
+                "templates": [np.random.randint(0, 256, (224, 224, 3), dtype=np.uint8)],
             },
         },
         except_augmentations={
@@ -394,7 +394,7 @@ def test_mask_fill_value(augmentation_cls, params):
             A.CropAndPad: {"px": 10},
             A.Resize: {"height": 10, "width": 10},
             A.TemplateTransform: {
-                "templates": np.random.randint(0, 256, (100, 100, 6), dtype=np.uint8),
+                "templates": [np.random.randint(0, 256, (100, 100, 6), dtype=np.uint8)],
             },
         },
         except_augmentations={
@@ -453,7 +453,7 @@ def test_multichannel_image_augmentations(augmentation_cls, params):
             A.Normalize: {"mean": 0, "std": 1},
             A.MedianBlur: {"blur_limit": (3, 5)},
             A.TemplateTransform: {
-                "templates": np.random.uniform(0.0, 1.0, (100, 100, 6)).astype(np.float32),
+                "templates": [np.random.uniform(0.0, 1.0, (100, 100, 6)).astype(np.float32)],
             },
         },
         except_augmentations={
@@ -503,7 +503,7 @@ def test_float_multichannel_image_augmentations(augmentation_cls, params):
             A.CropAndPad: {"px": 10},
             A.Resize: {"height": 10, "width": 10},
             A.TemplateTransform: {
-                "templates": np.random.randint(0, 1, (100, 100), dtype=np.uint8),
+                "templates": [np.random.randint(0, 1, (100, 100), dtype=np.uint8)],
             },
         },
         except_augmentations={
@@ -557,7 +557,7 @@ def test_multichannel_image_augmentations_diff_channels(augmentation_cls, params
             A.Normalize: {"mean": 0, "std": 1},
             A.MedianBlur: {"blur_limit": (3, 5)},
             A.TemplateTransform: {
-                "templates": np.random.uniform(0.0, 1.0, (100, 100, 1)).astype(np.float32),
+                "templates": [np.random.uniform(0.0, 1.0, (100, 100, 1)).astype(np.float32)],
             },
         },
         except_augmentations={
@@ -809,7 +809,7 @@ def test_pixel_domain_adaptation(kind):
             },
             A.MedianBlur: {"blur_limit": (3, 5)},
             A.TemplateTransform: {
-                "templates": np.random.uniform(low=0.0, high=1.0, size=(100, 100, 3)).astype(np.uint8),
+                "templates": [np.random.uniform(low=0.0, high=1.0, size=(100, 100, 3)).astype(np.uint8)],
             },
             A.RingingOvershoot: {"blur_limit": (3, 5)},
             # dual

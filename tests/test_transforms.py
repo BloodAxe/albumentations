@@ -189,8 +189,7 @@ def test_binary_mask_interpolation(augmentation_cls, params):
     ),
 )
 def test_semantic_mask_interpolation(augmentation_cls, params):
-    """Checks whether transformations based on DualTransform does not introduce a mask interpolation artifacts.
-    """
+    """Checks whether transformations based on DualTransform does not introduce a mask interpolation artifacts."""
     aug = augmentation_cls(p=1, **params)
     image = np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8)
     mask = np.random.randint(low=0, high=4, size=(100, 100), dtype=np.uint8) * 64
@@ -217,7 +216,7 @@ def __test_multiprocessing_support_proc(args):
             A.CropAndPad: {"px": 10},
             A.Resize: {"height": 10, "width": 10},
             A.TemplateTransform: {
-                "templates": np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8),
+                "templates": [np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8)],
             },
         },
         except_augmentations={
@@ -236,10 +235,8 @@ def test_multiprocessing_support(augmentation_cls, params, multiprocessing_conte
     aug = augmentation_cls(p=1, **params)
     image = np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8)
 
-    pool = multiprocessing_context.Pool(8)
-    pool.map(__test_multiprocessing_support_proc, map(lambda x: (x, aug), [image] * 100))
-    pool.close()
-    pool.join()
+    with multiprocessing_context.Pool(8) as pool:
+        pool.map(__test_multiprocessing_support_proc, map(lambda x: (x, aug), [image] * 100))
 
 
 def test_force_apply():
@@ -295,7 +292,7 @@ def test_force_apply():
                 "transform_type": "standard",
             },
             A.TemplateTransform: {
-                "templates": np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8),
+                "templates": [np.random.randint(low=0, high=256, size=(100, 100, 3), dtype=np.uint8)],
             },
         },
     ),
@@ -935,7 +932,7 @@ def test_smallest_max_size_list():
 )
 def test_template_transform(image, img_weight, template_weight, template_transform, image_size, template_size):
     img = np.random.randint(0, 256, image_size, np.uint8)
-    template = np.random.randint(0, 256, template_size, np.uint8)
+    template = [np.random.randint(0, 256, template_size, np.uint8)]
 
     aug = A.TemplateTransform(template, img_weight, template_weight, template_transform)
     result = aug(image=img)["image"]
@@ -949,7 +946,7 @@ def test_template_transform(image, img_weight, template_weight, template_transfo
 
 
 def test_template_transform_incorrect_size(template):
-    image = np.random.randint(0, 256, (512, 512, 3), np.uint8)
+    image = [np.random.randint(0, 256, (512, 512, 3), np.uint8)]
     with pytest.raises(ValueError) as exc_info:
         transform = A.TemplateTransform(template, always_apply=True)
         transform(image=image)
@@ -964,7 +961,7 @@ def test_template_transform_incorrect_channels(img_channels, template_channels):
     template = np.random.randint(0, 256, [512, 512, template_channels], np.uint8)
 
     with pytest.raises(ValueError) as exc_info:
-        transform = A.TemplateTransform(template, always_apply=True)
+        transform = A.TemplateTransform([template], always_apply=True)
         transform(image=img)
 
     message = (
