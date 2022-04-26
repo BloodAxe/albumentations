@@ -142,7 +142,7 @@ class Compose(BaseCompose):
 
         self.processors: typing.Dict[str, typing.Union[BboxProcessor, KeypointsProcessor]] = {}
         if bbox_params:
-            if isinstance(bbox_params, dict):
+            if isinstance(bbox_params, typing.Mapping):
                 b_params = BboxParams(**bbox_params)
             elif isinstance(bbox_params, BboxParams):
                 b_params = bbox_params
@@ -151,7 +151,7 @@ class Compose(BaseCompose):
             self.processors["bboxes"] = BboxProcessor(b_params, additional_targets)
 
         if keypoint_params:
-            if isinstance(keypoint_params, dict):
+            if isinstance(keypoint_params, typing.Mapping):
                 k_params = KeypointParams(**keypoint_params)
             elif isinstance(keypoint_params, KeypointParams):
                 k_params = keypoint_params

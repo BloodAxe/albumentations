@@ -371,7 +371,7 @@ def test_single_transform_compose(
 
     with pytest.warns(UserWarning):
         res_transform = compose_cls(transforms=transform, **compose_kwargs)  # type: ignore
-    assert isinstance(res_transform.transforms, list)
+    assert isinstance(res_transform.transforms, typing.Iterable)
 
 
 @pytest.mark.parametrize(

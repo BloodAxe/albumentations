@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import random
+import typing
 from copy import deepcopy
 from typing import Any, Callable, Dict, List, Sequence, Tuple
 from warnings import warn
@@ -37,7 +38,7 @@ def to_tuple(param, low=None, bias=None):
             param = -param, +param
         else:
             param = (low, param) if low < param else (param, low)
-    elif isinstance(param, Sequence):
+    elif isinstance(param, typing.Iterable):
         param = tuple(param)
     else:
         raise ValueError("Argument param must be either scalar (int, float) or tuple")

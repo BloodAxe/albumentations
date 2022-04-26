@@ -1,5 +1,6 @@
 import math
 import random
+import typing
 from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 
 import cv2
@@ -155,9 +156,9 @@ class CropNonEmptyMaskIfExists(DualTransform):
     def __init__(self, height, width, ignore_values=None, ignore_channels=None, always_apply=False, p=1.0):
         super(CropNonEmptyMaskIfExists, self).__init__(always_apply, p)
 
-        if ignore_values is not None and not isinstance(ignore_values, list):
+        if ignore_values is not None and not isinstance(ignore_values, typing.Iterable):
             raise ValueError("Expected `ignore_values` of type `list`, got `{}`".format(type(ignore_values)))
-        if ignore_channels is not None and not isinstance(ignore_channels, list):
+        if ignore_channels is not None and not isinstance(ignore_channels, typing.Iterable):
             raise ValueError("Expected `ignore_channels` of type `list`, got `{}`".format(type(ignore_channels)))
 
         self.height = height

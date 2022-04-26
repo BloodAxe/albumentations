@@ -85,12 +85,6 @@ def get_filtered_transforms(
         if not issubclass(cls, base_classes) or any(cls == i for i in base_classes) or cls in except_augmentations:
             continue
 
-        try:
-            if issubclass(cls, albumentations.BasicIAATransform):
-                continue
-        except AttributeError:
-            pass
-
         result.append((cls, custom_arguments.get(cls, {})))
 
     return result

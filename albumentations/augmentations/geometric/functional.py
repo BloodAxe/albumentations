@@ -1,4 +1,5 @@
 import math
+import typing
 from typing import List, Optional, Sequence, Tuple, Union
 
 import cv2
@@ -743,7 +744,10 @@ def from_distance_maps(
         drop_if_not_found = True
         if_not_found_x = -1
         if_not_found_y = -1
-    elif isinstance(if_not_found_coords, (tuple, list)):
+    elif isinstance(if_not_found_coords, typing.Mapping):
+        if_not_found_x = if_not_found_coords["x"]
+        if_not_found_y = if_not_found_coords["y"]
+    elif isinstance(if_not_found_coords, typing.Iterable):
         if len(if_not_found_coords) != 2:
             raise ValueError(
                 f"Expected tuple/list 'if_not_found_coords' to contain exactly two entries, "
@@ -751,9 +755,6 @@ def from_distance_maps(
             )
         if_not_found_x = if_not_found_coords[0]
         if_not_found_y = if_not_found_coords[1]
-    elif isinstance(if_not_found_coords, dict):
-        if_not_found_x = if_not_found_coords["x"]
-        if_not_found_y = if_not_found_coords["y"]
     else:
         raise ValueError(
             f"Expected if_not_found_coords to be None or tuple or list or dict, got {type(if_not_found_coords)}."

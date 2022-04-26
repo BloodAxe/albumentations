@@ -3,6 +3,7 @@ from __future__ import absolute_import, division
 import math
 import numbers
 import random
+import typing
 import warnings
 from enum import Enum, IntEnum
 from types import LambdaType
@@ -1414,7 +1415,7 @@ class Posterize(ImageOnlyTransform):
     def __init__(self, num_bits=4, always_apply=False, p=0.5):
         super(Posterize, self).__init__(always_apply, p)
 
-        if isinstance(num_bits, (list, tuple)):
+        if isinstance(num_bits, typing.Iterable):
             if len(num_bits) == 3:
                 self.num_bits = [to_tuple(i, 0) for i in num_bits]
             else:
@@ -1797,7 +1798,7 @@ class GaussNoise(ImageOnlyTransform):
 
     def __init__(self, var_limit=(10.0, 50.0), mean=0, per_channel=True, always_apply=False, p=0.5):
         super(GaussNoise, self).__init__(always_apply, p)
-        if isinstance(var_limit, (tuple, list)):
+        if isinstance(var_limit, typing.Iterable):
             if var_limit[0] < 0:
                 raise ValueError("Lower var_limit should be non negative.")
             if var_limit[1] < 0:
@@ -2451,7 +2452,7 @@ class ColorJitter(ImageOnlyTransform):
             value = [offset - value, offset + value]
             if clip:
                 value[0] = max(value[0], 0)
-        elif isinstance(value, (tuple, list)) and len(value) == 2:
+        elif isinstance(value, typing.Iterable) and len(value) == 2:
             if not bounds[0] <= value[0] <= value[1] <= bounds[1]:
                 raise ValueError("{} values should be between {}".format(name, bounds))
         else:
@@ -2663,7 +2664,7 @@ class TemplateTransform(ImageOnlyTransform):
     """
     Apply blending of input image with specified templates
     Args:
-        templates (numpy array or list of numpy arrays): Images as template for transform.
+        templates (list of numpy arrays): Images as template for transform.
         img_weight ((float, float) or float): If single float will be used as weight for input image.
             If tuple of float img_weight will be in range `[img_weight[0], img_weight[1])`. Default: 0.5.
         template_weight ((float, float) or float): If single float will be used as weight for template.
@@ -2681,7 +2682,7 @@ class TemplateTransform(ImageOnlyTransform):
 
     def __init__(
         self,
-        templates,
+        templates: List[np.ndarray],
         img_weight=0.5,
         template_weight=0.5,
         template_transform=None,
@@ -2691,7 +2692,9 @@ class TemplateTransform(ImageOnlyTransform):
     ):
         super().__init__(always_apply, p)
 
-        self.templates = templates if isinstance(templates, (list, tuple)) else [templates]
+        if isinstance(templates, np.ndarray) or not isinstance(templates, typing.Iterable):
+            raise ValueError("templates must be list of numpy arrays")
+        self.templates = templates
         self.img_weight = to_tuple(img_weight, img_weight)
         self.template_weight = to_tuple(template_weight, template_weight)
         self.template_transform = template_transform

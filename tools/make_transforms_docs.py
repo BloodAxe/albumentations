@@ -10,10 +10,7 @@ import albumentations  # noqa: E402
 
 IGNORED_CLASSES = {
     "BasicTransform",
-    "BasicIAATransform",
-    "DualIAATransform",
     "DualTransform",
-    "ImageOnlyIAATransform",
     "ImageOnlyTransform",
 }
 
@@ -76,9 +73,6 @@ def get_transforms_info():
                 and cls.apply_to_keypoints is not albumentations.DualTransform.apply_to_keypoints
             ):
                 targets.add(Targets.KEYPOINTS)
-
-            if issubclass(cls, albumentations.DualIAATransform):
-                targets.update({Targets.BBOXES, Targets.KEYPOINTS})
 
             if issubclass(cls, albumentations.Lambda):
                 targets.add(Targets.MASKS)

@@ -1,4 +1,5 @@
 import random
+import typing
 from typing import Dict, Optional, Sequence, Tuple, Union
 
 import cv2
@@ -537,8 +538,8 @@ class Affine(DualTransform):
         )
 
     @staticmethod
-    def _handle_dict_arg(val: Union[float, Sequence[float], dict], name: str):
-        if isinstance(val, dict):
+    def _handle_dict_arg(val: Union[float, Sequence[float], typing.Mapping], name: str):
+        if isinstance(val, typing.Mapping):
             if "x" not in val and "y" not in val:
                 raise ValueError(
                     f'Expected {name} dictionary to contain at least key "x" or ' 'key "y". Found neither of them.'

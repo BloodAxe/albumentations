@@ -36,25 +36,7 @@ class KeypointsProcessor(DataProcessor):
                 )
 
     def ensure_transforms_valid(self, transforms):
-        # IAA-based augmentations supports only transformation of xy keypoints.
-        # If your keypoints formats is other than 'xy' we emit warning to let user
-        # be aware that angle and size will not be modified.
-
-        try:
-            from albumentations.imgaug.transforms import DualIAATransform
-        except ImportError:
-            # imgaug is not installed so we skip imgaug checks.
-            return
-
-        if self.params.format is not None and self.params.format != "xy":
-            for transform in transforms:
-                if isinstance(transform, DualIAATransform):
-                    warnings.warn(
-                        "{} transformation supports only 'xy' keypoints "
-                        "augmentation. You have '{}' keypoints format. Scale "
-                        "and angle WILL NOT BE transformed.".format(transform.__class__.__name__, self.params.format)
-                    )
-                    break
+        pass
 
     def filter(self, data, rows, cols):
         return filter_keypoints(data, rows, cols, remove_invisible=self.params.remove_invisible)
