@@ -55,7 +55,7 @@ class BaseCompose(metaclass=SerializableMeta):
             )
             transforms = [transforms]
 
-        self.transforms = transforms
+        self.transforms = list(transforms)
         self.p = p
 
         self.replay_mode = False

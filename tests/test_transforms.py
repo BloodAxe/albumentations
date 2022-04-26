@@ -948,7 +948,7 @@ def test_template_transform(image, img_weight, template_weight, template_transfo
 def test_template_transform_incorrect_size(template):
     image = [np.random.randint(0, 256, (512, 512, 3), np.uint8)]
     with pytest.raises(ValueError) as exc_info:
-        transform = A.TemplateTransform(template, always_apply=True)
+        transform = A.TemplateTransform([template], always_apply=True)
         transform(image=image)
 
     message = "Image and template must be the same size, got {} and {}".format(image.shape[:2], template.shape[:2])
