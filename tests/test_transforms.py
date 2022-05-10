@@ -775,8 +775,7 @@ def test_color_jitter_float_uint8_equal(brightness, contrast, saturation, hue):
 def test_hue_saturation_value_float_uint8_equal(hue, sat, val):
     img = np.random.randint(0, 256, [100, 100, 3], dtype=np.uint8)
 
-    for i in range(2):
-        sign = 1 if i == 0 else -1
+    for sign in [1, -1]:
         for i in range(4):
             if i == 0:
                 _hue = hue * sign

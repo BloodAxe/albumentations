@@ -2322,7 +2322,7 @@ class FancyPCA(ImageOnlyTransform):
         3-channel uint8 images only
 
     Credit:
-        http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
+        https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
         https://deshanadesai.github.io/notes/Fancy-PCA-with-Scikit-Image
         https://pixelatedbrian.github.io/2018-04-29-fancy_pca/
     """

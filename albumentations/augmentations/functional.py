@@ -1060,7 +1060,7 @@ def optical_distortion(
         |  https://stackoverflow.com/questions/6199636/formulas-for-barrel-pincushion-distortion
         |  https://stackoverflow.com/questions/10364201/image-transformation-in-opencv
         |  https://stackoverflow.com/questions/2477774/correcting-fisheye-distortion-programmatically
-        |  http://www.coldvision.io/2017/03/02/advanced-lane-finding-using-opencv/
+        |  https://www.coldvision.io/2017/03/02/advanced-lane-finding-using-opencv/
     """
     height, width = img.shape[:2]
 
@@ -1098,7 +1098,7 @@ def grid_distortion(
     """Perform a grid distortion of an input image.
 
     Reference:
-        http://pythology.blogspot.sg/2014/03/interpolation-on-regular-distorted-grid.html
+        https://pythology.blogspot.sg/2014/03/interpolation-on-regular-distorted-grid.html
     """
     height, width = img.shape[:2]
 
@@ -1636,7 +1636,7 @@ def multiply(img, multiplier):
 
 def fancy_pca(img, alpha=0.1):
     """Perform 'Fancy PCA' augmentation from:
-    http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
+    https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
 
     Args:
         img:  numpy array with (h, w, rgb) shape, as ints between 0-255)

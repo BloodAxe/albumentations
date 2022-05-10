@@ -166,7 +166,7 @@ def filter_bboxes_by_visibility(
     original_shape, bboxes, transformed_shape, transformed_bboxes, threshold=0.0, min_area=0.0
 ):
     """Filter bounding boxes and return only those boxes whose visibility after transformation is above
-    the threshold and minimal area of bounding box in pixels is more then min_area.
+    the threshold and minimal area of bounding box in pixels is more than min_area.
 
     Args:
         original_shape (tuple): Original image shape `(height, width)`.
@@ -351,11 +351,11 @@ def check_bboxes(bboxes):
 
 
 def filter_bboxes(bboxes, rows, cols, min_area=0.0, min_visibility=0.0):
-    """Remove bounding boxes that either lie outside of the visible area by more then min_visibility
-    or whose area in pixels is under the threshold set by `min_area`. Also it crops boxes to final image size.
+    """Remove bounding boxes that either lie outside the visible area by more than min_visibility
+    or whose area in pixels is under the threshold set by `min_area`. Also, it crops boxes to final image size.
 
     Args:
-        bboxes (List[tuple]): List of albumentation bounding box `(x_min, y_min, x_max, y_max)`.
+        bboxes (List[tuple]): List of bounding boxes `(x_min, y_min, x_max, y_max)`.
         rows (int): Image height.
         cols (int): Image width.
         min_area (float): Minimum area of a bounding box. All bounding boxes whose visible area in pixels.
