@@ -271,7 +271,7 @@ def normalize_optimized(img: np.ndarray, scale: np.ndarray, bias: np.ndarray):
     return img
 
 
-def _maybe_process_in_chunks(process_fn, **kwargs):
+def _maybe_process_in_chunks(process_fn, _max_channels_in_chunk=512, **kwargs):
     """
     Wrap OpenCV function to enable processing images with more than 4 channels.
 
@@ -290,9 +290,9 @@ def _maybe_process_in_chunks(process_fn, **kwargs):
     @wraps(process_fn)
     def __process_fn(img):
         num_channels = get_num_channels(img)
-        if num_channels > 4:
+        if num_channels > _max_channels_in_chunk:
             chunks = []
-            for index in range(0, num_channels, 4):
+            for index in range(0, num_channels, _max_channels_in_chunk):
                 if num_channels - index == 2:
                     # Many OpenCV functions cannot work with 2-channel images
                     for i in range(2):
@@ -301,7 +301,7 @@ def _maybe_process_in_chunks(process_fn, **kwargs):
                         chunk = np.expand_dims(chunk, -1)
                         chunks.append(chunk)
                 else:
-                    chunk = img[:, :, index : index + 4]
+                    chunk = img[:, :, index : index + _max_channels_in_chunk]
                     chunk = process_fn(chunk, **kwargs)
                     chunks.append(chunk)
             img = np.dstack(chunks)
@@ -901,7 +901,7 @@ def add_rain(
 
     image = img.copy()
 
-    for (rain_drop_x0, rain_drop_y0) in rain_drops:
+    for rain_drop_x0, rain_drop_y0 in rain_drops:
         rain_drop_x1 = rain_drop_x0 + slant
         rain_drop_y1 = rain_drop_y0 + drop_length
 
@@ -1012,7 +1012,7 @@ def add_sun_flare(img, flare_center_x, flare_center_y, src_radius, src_color, ci
     overlay = img.copy()
     output = img.copy()
 
-    for (alpha, (x, y), rad3, (r_color, g_color, b_color)) in circles:
+    for alpha, (x, y), rad3, (r_color, g_color, b_color) in circles:
         cv2.circle(overlay, (x, y), rad3, (r_color, g_color, b_color), -1)
 
         cv2.addWeighted(overlay, alpha, output, 1 - alpha, 0, output)
@@ -1762,7 +1762,6 @@ def glass_blur(img, sigma, max_delta, iterations, dxy, mode):
     x = cv2.GaussianBlur(np.array(img), sigmaX=sigma, ksize=(0, 0))
 
     if mode == "fast":
-
         hs = np.arange(img.shape[0] - max_delta, max_delta, -1)
         ws = np.arange(img.shape[1] - max_delta, max_delta, -1)
         h = np.tile(hs, ws.shape[0])
