@@ -706,7 +706,7 @@ class Normalize(ImageOnlyTransform):
         mean (float, list of float): mean values
         std  (float, list of float): std values
         max_pixel_value (float): maximum possible pixel value
-
+        preserve_dtype: (bool): if True, output dtype of transformed image is the same as input image.
     Targets:
         image
 
@@ -721,21 +721,23 @@ class Normalize(ImageOnlyTransform):
         max_pixel_value=255.0,
         always_apply=False,
         p=1.0,
+        preserve_dtype: bool = False
     ):
         super(Normalize, self).__init__(always_apply, p)
         self.mean = mean
         self.std = std
         self.max_pixel_value = max_pixel_value
+        self.preserve_dtype = preserve_dtype
 
         self._bias = np.array(mean, dtype=np.float32) * max_pixel_value
         std = np.array(std, dtype=np.float32) * max_pixel_value
         self._scale = np.reciprocal(std, dtype=np.float32)
 
     def apply(self, image, **params):
-        return F.normalize_optimized(image, scale=self._scale, bias=self._bias)
+        return F.normalize_optimized(image, scale=self._scale, bias=self._bias, preserve_dtype=self.preserve_dtype)
 
     def get_transform_init_args_names(self):
-        return ("mean", "std", "max_pixel_value")
+        return ("mean", "std", "max_pixel_value", "preserve_dtype")
 
 
 class ImageCompression(ImageOnlyTransform):

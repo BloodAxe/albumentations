@@ -264,8 +264,8 @@ def normalize(img, mean, std, max_pixel_value=255.0):
     return img
 
 
-def normalize_optimized(img: np.ndarray, scale: np.ndarray, bias: np.ndarray):
-    output_dtype = np.promote_types(img.dtype, scale.dtype)
+def normalize_optimized(img: np.ndarray, scale: np.ndarray, bias: np.ndarray, preserve_dtype):
+    output_dtype = img.dtype if preserve_dtype else np.promote_types(img.dtype, scale.dtype)
     img = np.subtract(img, bias, dtype=output_dtype)
     img = np.multiply(img, scale, out=img, dtype=output_dtype)
     return img
