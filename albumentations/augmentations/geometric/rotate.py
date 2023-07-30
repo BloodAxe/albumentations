@@ -27,7 +27,7 @@ class RandomRotate90(DualTransform):
         Args:
             factor (int): number of times the input will be rotated by 90 degrees.
         """
-        return np.ascontiguousarray(np.rot90(img, factor))
+        return np.rot90(img, factor)
 
     def get_params(self):
         # Random int in the range [0, 3]
