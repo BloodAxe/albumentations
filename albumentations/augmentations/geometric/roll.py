@@ -29,5 +29,6 @@ class Roll(DualTransform):
         img = np.roll(img, shift=roll_x, axis=1)
         return img
 
+    @property
     def targets_as_params(self) -> List[str]:
         return ["image"]
