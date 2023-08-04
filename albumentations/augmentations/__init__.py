@@ -11,6 +11,7 @@ from .geometric.functional import *
 from .geometric.resize import *
 from .geometric.rotate import *
 from .geometric.transforms import *
+from .geometric.roll import *
 
 from .dropout.channel_dropout import *
 from .dropout.coarse_dropout import *
