@@ -15,8 +15,8 @@ class Roll(DualTransform):
 
     def get_params_dependent_on_targets(self, params: Dict[str, Any]) -> Dict[str, Any]:
         image = params["image"]
-        roll_x = random.randint(0, image.shape[0])
-        roll_y = random.randint(0, image.shape[1])
+        roll_y = random.randint(0, image.shape[0])
+        roll_x = random.randint(0, image.shape[1])
         return {"roll_x": roll_x, "roll_y": roll_y}
 
     def apply(self, img: np.ndarray, roll_x: int = 0, roll_y: int = 0, **params) -> np.ndarray:
