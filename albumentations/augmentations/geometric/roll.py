@@ -6,7 +6,7 @@ from ...core.transforms_interface import DualTransform
 __all__ = ["Roll"]
 
 
-class Roll(albumentations.DualTransform):
+class Roll(DualTransform):
     def __init__(self, always_apply=False, p=0.5):
         super().__init__(always_apply=always_apply, p=p)
 
