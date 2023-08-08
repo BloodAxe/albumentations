@@ -199,6 +199,10 @@ def shift_scale_rotate(
     matrix[0, 2] += dx * width
     matrix[1, 2] += dy * height
 
+    _max_channels_in_chunk = 512
+    if interpolation in {cv2.INTER_LANCZOS4, cv2.INTER_CUBIC}:
+        _max_channels_in_chunk = 4
+
     warp_affine_fn = _maybe_process_in_chunks(
         cv2.warpAffine,
         M=matrix,
