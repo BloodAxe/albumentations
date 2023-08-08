@@ -210,6 +210,7 @@ def shift_scale_rotate(
         flags=interpolation,
         borderMode=border_mode,
         borderValue=value,
+        _max_channels_in_chunk=_max_channels_in_chunk
     )
     out = warp_affine_fn(img)
     return out
